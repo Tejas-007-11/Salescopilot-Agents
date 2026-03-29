@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SalesCopilot — AI Sales Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:         #f4f4f1;
+      --surface:    #ffffff;
+      --border:     #e2e2de;
+      --border-2:   #ccccc8;
+      --text:       #141412;
+      --muted:      #5c5c58;
+      --subtle:     #989894;
+      --accent:     #0052cc;
+      --accent-2:   #0065ff;
+      --accent-bg:  #e6effc;
+      --green:      #1a8a56;
+      --green-bg:   #e3f5ed;
+      --amber:      #a85200;
+      --amber-bg:   #fceedd;
+      --red:        #b93126;
+      --red-bg:     #fce9e7;
+
+      /* gradient stops */
+      --g-blue-a:  #0052cc;
+      --g-blue-b:  #2684ff;
+      --g-blue-c:  #5ba4ff;
+      --g-green-a: #1a8a56;
+      --g-green-b: #36b37e;
+      --g-green-c: #57d9a3;
+      --g-amber-a: #a85200;
+      --g-amber-b: #ff8b00;
+      --g-amber-c: #ffab3d;
+      --g-red-a:   #b93126;
+      --g-red-b:   #ff5630;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 19px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ────────────────────────────────────────
+       NAV
+    ──────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      height: 72px;
+      display: flex; align-items: center;
+      padding: 0 44px; gap: 32px;
+    }
+
+    .logo {
+      font-weight: 700; font-size: 20px; color: var(--text);
+      letter-spacing: -0.02em;
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--g-blue-a), var(--g-blue-b), var(--g-blue-c));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 14px; font-weight: 700;
+      box-shadow: 0 2px 12px rgba(0,82,204,0.4);
+    }
+
+    .nav-sep { width: 1px; height: 18px; background: var(--border); }
+
+    .nav-link {
+      font-size: 18px; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color 0.15s;
+      position: relative;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; border-radius: 1px;
+      background: linear-gradient(90deg, var(--g-blue-a), var(--g-blue-c));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.22s ease;
+    }
+    .nav-link:hover { color: var(--text); }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    .nav-status {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 15px; color: var(--green); font-weight: 600;
+      background: var(--green-bg);
+      border: 1px solid rgba(26,138,86,0.2);
+      padding: 7px 16px; border-radius: 20px;
+    }
+
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(26,138,86,0.2);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(26,138,86,0.2); }
+      50%       { box-shadow: 0 0 0 5px rgba(26,138,86,0.08); }
+    }
+
+    /* ────────────────────────────────────────
+       HERO
+    ──────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 110px 32px 100px;
+      text-align: center;
+    }
+
+    /* subtle grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,82,204,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,82,204,0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+
+    /* richer multi-stop gradient wash */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 65% 55% at 15% 0%,  rgba(0,82,204,0.09)  0%, transparent 60%),
+        radial-gradient(ellipse 45% 50% at 85% 0%,  rgba(38,132,255,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 50% 110%, rgba(91,164,255,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent);
+      background: linear-gradient(135deg, #e6effc, #d6e8ff);
+      border: 1px solid rgba(0,82,204,0.2);
+      padding: 7px 16px; border-radius: 5px;
+      margin-bottom: 30px;
+      animation: fade-up 0.5s ease both;
+    }
+    .hero-tag-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,82,204,0.2);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 76px);
+      font-weight: 700; letter-spacing: -0.04em; line-height: 1.08;
+      color: var(--text); margin-bottom: 24px;
+      animation: fade-up 0.5s 0.07s ease both;
+    }
+
+    .hero h1 .grad {
+      background: linear-gradient(135deg, var(--g-blue-a) 0%, var(--g-blue-b) 50%, var(--g-blue-c) 100%);
+      background-size: 200%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: grad-pan 5s ease-in-out infinite alternate;
+    }
+    @keyframes grad-pan {
+      from { background-position: 0%; }
+      to   { background-position: 100%; }
+    }
+
+    .hero p {
+      font-size: 22px; color: var(--muted);
+      max-width: 600px; margin: 0 auto 44px;
+      line-height: 1.7; font-weight: 300;
+      animation: fade-up 0.5s 0.14s ease both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 12px;
+      justify-content: center; flex-wrap: wrap;
+      animation: fade-up 0.5s 0.21s ease both;
+    }
+
+    /* ────────────────────────────────────────
+       BUTTONS
+    ──────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 17px; font-weight: 600;
+      padding: 14px 28px; border-radius: 9px;
+      border: none; cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s;
+      text-decoration: none; white-space: nowrap;
+      position: relative; overflow: hidden;
+    }
+    .btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.2) 50%, transparent 65%);
+      transform: translateX(-100%);
+    }
+    .btn:hover::after { transform: translateX(100%); transition: transform 0.45s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--g-blue-a), var(--g-blue-b));
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,82,204,0.28);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 20px rgba(0,82,204,0.38); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .btn-secondary {
+      background: var(--surface); color: var(--text);
+      border: 1.5px solid var(--border-2);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .btn-secondary:hover {
+      background: var(--bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* ────────────────────────────────────────
+       AGENTS CAROUSEL
+    ──────────────────────────────────────── */
+    .tabs-wrap {
+      margin: 0; padding: 0; overflow: hidden;
+    }
+
+    .agents-section-bg {
+      background: #ededea;
+      padding: 80px 0 0;
+      position: relative; overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    /* subtle dot pattern */
+    .agents-section-bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .agents-section-inner {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 60px;
+    }
+
+    .agents-eyebrow {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .agents-eyebrow::before {
+      content: ''; display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--accent); border-radius: 1px;
+    }
+
+    .agents-big-title {
+      font-size: clamp(52px, 6.5vw, 88px);
+      font-weight: 700; letter-spacing: -0.045em; line-height: 1.0;
+      color: var(--text); margin-bottom: 20px;
+    }
+    .agents-big-title .grad {
+      background: linear-gradient(135deg, var(--g-blue-a), var(--g-blue-b), var(--g-blue-c));
+      background-size: 200%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: grad-pan 5s ease-in-out infinite alternate;
+    }
+
+    .agents-tagline {
+      font-size: 20px; color: var(--muted);
+      font-weight: 300; margin-bottom: 56px;
+      max-width: 520px; line-height: 1.6;
+    }
+
+    /* ── Carousel nav ── */
+    .carousel-nav {
+      display: flex; align-items: stretch; gap: 0;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .carousel-tab {
+      flex: 1; padding: 18px 4px 20px;
+      background: none; border: none; cursor: pointer;
+      text-align: left; position: relative;
+      transition: background 0.18s;
+      border-radius: 8px 8px 0 0;
+    }
+    .carousel-tab:hover { background: rgba(0,0,0,0.04); }
+
+    .carousel-tab-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.1em; color: var(--subtle);
+      margin-bottom: 6px;
+    }
+    .carousel-tab-label {
+      font-size: 20px; font-weight: 700;
+      color: var(--muted); letter-spacing: -0.02em;
+      transition: color 0.2s;
+    }
+    .carousel-tab.active .carousel-tab-label { color: var(--text); }
+    .carousel-tab.active .carousel-tab-num   { color: var(--accent); }
+
+    .carousel-tab::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 3px; border-radius: 2px 2px 0 0;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    .carousel-tab:nth-child(1)::after { background: linear-gradient(90deg, var(--g-blue-a), var(--g-blue-c)); }
+    .carousel-tab:nth-child(2)::after { background: linear-gradient(90deg, var(--g-amber-a), var(--g-amber-c)); }
+    .carousel-tab:nth-child(3)::after { background: linear-gradient(90deg, var(--g-green-a), var(--g-green-c)); }
+    .carousel-tab.active::after { transform: scaleX(1); }
+
+    /* ── Track ── */
+    .carousel-track-wrap { overflow: hidden; position: relative; }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.46s cubic-bezier(.77,0,.175,1);
+      will-change: transform;
+    }
+
+    /* ── Slide (panel) ── */
+    .panel {
+      flex: 0 0 100%; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+      background: var(--surface);
+    }
+    @media (max-width: 720px) { .panel { grid-template-columns: 1fr; } }
+
+    @keyframes panel-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-header { display: none; }
+
+    /* Left: form */
+    .panel-form {
+      padding: 56px 60px;
+      display: flex; flex-direction: column; gap: 24px;
+      border-right: 1px solid var(--border);
+    }
+    @media (max-width: 720px) {
+      .panel-form { padding: 40px 32px; border-right: none; border-bottom: 1px solid var(--border); }
+      .panel-output { padding: 40px 32px; }
+    }
+
+    .panel-form-title {
+      font-size: 36px; font-weight: 700; letter-spacing: -0.03em;
+      color: var(--text); line-height: 1.1;
+    }
+    .panel-form-desc {
+      font-size: 18px; color: var(--muted);
+      font-weight: 300; line-height: 1.6;
+      margin-top: -8px;
+    }
+
+    /* Right: output */
+    .panel-output {
+      padding: 56px 60px;
+      display: flex; flex-direction: column;
+      position: relative;
+    }
+    #panel-prospect .panel-output {
+      background: radial-gradient(ellipse 80% 70% at 90% 100%, rgba(0,82,204,0.06) 0%, transparent 65%);
+    }
+    #panel-deal .panel-output {
+      background: radial-gradient(ellipse 80% 70% at 90% 100%, rgba(168,82,0,0.06) 0%, transparent 65%);
+    }
+    #panel-churn .panel-output {
+      background: radial-gradient(ellipse 80% 70% at 90% 100%, rgba(26,138,86,0.06) 0%, transparent 65%);
+    }
+
+    .panel-output-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.13em;
+      text-transform: uppercase; color: var(--subtle);
+      margin-bottom: 28px;
+    }
+
+    /* ── Form fields ── */
+    .field { display: flex; flex-direction: column; gap: 8px; }
+
+    label {
+      font-size: 14px; font-weight: 700;
+      color: var(--muted); letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 18px; color: var(--text);
+      background: var(--bg);
+      border: 1.5px solid var(--border-2);
+      border-radius: 10px; padding: 14px 18px;
+      outline: none; width: 100%;
+      transition: border-color 0.18s, box-shadow 0.18s, background 0.18s, transform 0.1s;
+    }
+    input::placeholder { color: var(--subtle); }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px rgba(0,82,204,0.1);
+      transform: scale(1.005);
+    }
+    select {
+      -webkit-appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%235c5c58' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+    select option { background: white; }
+
+    /* ── Output states ── */
+    .out-empty {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 14px; color: var(--subtle);
+      font-size: 18px; min-height: 200px; text-align: center;
+    }
+    .out-empty-icon {
+      width: 60px; height: 60px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--bg), #e8e8e5);
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .loader {
+      display: none; align-items: center; gap: 14px;
+      font-size: 18px; color: var(--muted);
+      min-height: 200px; justify-content: center;
+    }
+    .loader.on { display: flex; }
+
+    .spinner {
+      width: 22px; height: 22px;
+      border: 2.5px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Result display ── */
+    .result-block {
+      display: none; flex-direction: column; gap: 24px;
+      animation: fade-up 0.25s ease both;
+    }
+    .result-block.on { display: flex; }
+
+    .result-row { display: flex; flex-direction: column; gap: 6px; }
+
+    .result-key {
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--subtle);
+    }
+
+    .result-big {
+      font-size: 64px; font-weight: 700;
+      letter-spacing: -0.04em; line-height: 1;
+      background: linear-gradient(135deg, var(--g-blue-a), var(--g-blue-b), var(--g-blue-c));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .result-big.green {
+      background: linear-gradient(135deg, var(--g-green-a), var(--g-green-b), var(--g-green-c));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .result-big.amber {
+      background: linear-gradient(135deg, var(--g-amber-a), var(--g-amber-b), var(--g-amber-c));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .result-big.red {
+      background: linear-gradient(135deg, var(--g-red-a), var(--g-red-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .result-divider { height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+
+    .result-text {
+      font-size: 17px; color: var(--muted);
+      line-height: 1.75; font-weight: 300;
+      white-space: pre-wrap; word-break: break-word;
+    }
+
+    /* ────────────────────────────────────────
+       METRICS
+    ──────────────────────────────────────── */
+    .metrics-wrap {
+      max-width: 1100px; margin: 40px auto 88px;
+      padding: 0 32px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    @media (max-width: 560px) { .metrics-wrap { grid-template-columns: 1fr; } }
+
+    .metric {
+      border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 36px 32px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      position: relative; overflow: hidden;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .metric:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+    .metric:nth-child(1) { background: linear-gradient(150deg, rgba(0,82,204,0.05) 0%, transparent 50%), var(--surface); }
+    .metric:nth-child(2) { background: linear-gradient(150deg, rgba(26,138,86,0.05) 0%, transparent 50%), var(--surface); }
+    .metric:nth-child(3) { background: linear-gradient(150deg, rgba(168,82,0,0.05) 0%, transparent 50%), var(--surface); }
+
+    /* accent stripe */
+    .metric::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .metric:nth-child(1)::before { background: linear-gradient(90deg, var(--g-blue-a), var(--g-blue-b), var(--g-blue-c)); }
+    .metric:nth-child(2)::before { background: linear-gradient(90deg, var(--g-green-a), var(--g-green-b), var(--g-green-c)); }
+    .metric:nth-child(3)::before { background: linear-gradient(90deg, var(--g-amber-a), var(--g-amber-b), var(--g-amber-c)); }
+    /* watermark */
+    .metric::after { content: attr(data-glyph); position: absolute; bottom: -4px; right: 14px; font-size: 54px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; pointer-events: none; user-select: none; opacity: 0.042; }
+    .metric:nth-child(1)::after { color: var(--g-blue-a); }
+    .metric:nth-child(2)::after { color: var(--g-green-a); }
+    .metric:nth-child(3)::after { color: var(--g-amber-a); }
+
+    .metric-num {
+      font-size: 48px; font-weight: 700;
+      letter-spacing: -0.04em; margin-bottom: 8px;
+    }
+    .metric:nth-child(1) .metric-num { background: linear-gradient(135deg, var(--g-blue-a), var(--g-blue-b), var(--g-blue-c)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .metric:nth-child(2) .metric-num { background: linear-gradient(135deg, var(--g-green-a), var(--g-green-b), var(--g-green-c)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .metric:nth-child(3) .metric-num { background: linear-gradient(135deg, var(--g-amber-a), var(--g-amber-b), var(--g-amber-c)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .metric-label { font-size: 17px; color: var(--muted); font-weight: 400; line-height: 1.45; }
+
+    /* ────────────────────────────────────────
+       ANIMATIONS
+    ──────────────────────────────────────── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* staggered page load */
+    nav         { animation: fade-up 0.3s ease both; }
+    .hero       { animation: fade-up 0.35s 0.05s ease both; }
+    .tabs-wrap  { animation: fade-up 0.35s 0.12s ease both; }
+    .metrics-wrap { animation: fade-up 0.35s 0.18s ease both; }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* hover lift on panel */
+    .panel { transition: box-shadow 0.2s; }
+    .panel:hover { box-shadow: 0 6px 28px rgba(0,0,0,0.08); }
+
+    /* input focus ring animation */
+    input, select { transition: border-color 0.18s, box-shadow 0.18s, transform 0.1s; }
+    input:focus, select:focus { transform: scale(1.005); }
+
+    /* run btn pulse */
+    .btn-primary.pulse {
+      animation: btn-pulse 0.4s ease;
+    }
+    @keyframes btn-pulse {
+      0%  { transform: scale(1); }
+      40% { transform: scale(0.96); }
+      100%{ transform: scale(1); }
+    }
+
+    /* result pop */
+    @keyframes result-pop {
+      0%   { opacity: 0; transform: scale(0.94) translateY(8px); }
+      60%  { transform: scale(1.02) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .result-block.on { animation: result-pop 0.35s cubic-bezier(.34,1.56,.64,1) both; }
+
+    /* staggered metric reveal */
+    .metrics-wrap .metric { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.22s; }
+    .metrics-wrap.in .metric:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+    .metrics-wrap.in .metric:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.09s; }
+    .metrics-wrap.in .metric:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
+    .metric-num { position: relative; }
+
+    /* carousel panel animation delays */
+    .carousel-track .panel:nth-child(1) { animation-delay: 0s; }
+    .carousel-track .panel:nth-child(2) { animation-delay: 0.07s; }
+    .carousel-track .panel:nth-child(3) { animation-delay: 0.14s; }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-icon">SC</div>
+      SalesCopilot
+    </a>
+    <div class="nav-sep"></div>
+    <a href="#agents"   class="nav-link">Agents</a>
+    <a href="#overview" class="nav-link">Overview</a>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      3 agents active
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag"><span class="hero-tag-dot"></span>AI Sales Intelligence</div>
+      <h1>Your pipeline,<br/><span class="grad">on autopilot.</span></h1>
+      <p>Three focused agents — prospecting, deal risk, churn — doing one job each, exceptionally well.</p>
+      <div class="hero-actions">
+        <a href="#agents" class="btn btn-primary">
+          Open agents
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#overview" class="btn btn-secondary">View overview</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── AGENTS ── -->
+  <div class="tabs-wrap" id="agents">
+  <div class="agents-section-bg">
+    <div class="agents-section-inner">
+
+      <div class="agents-eyebrow">AI Agents</div>
+      <div class="agents-big-title">Three agents.<br/><span class="grad">One mission.</span></div>
+      <div class="agents-tagline">Prospecting, deal risk, and churn — each built to do one thing exceptionally well.</div>
+
+      <!-- Tab nav -->
+      <div class="carousel-nav">
+        <button class="carousel-tab active" onclick="goToSlide(0, this)">
+          <div class="carousel-tab-num">01</div>
+          <div class="carousel-tab-label">Prospecting</div>
+        </button>
+        <button class="carousel-tab" onclick="goToSlide(1, this)">
+          <div class="carousel-tab-num">02</div>
+          <div class="carousel-tab-label">Deal Intelligence</div>
+        </button>
+        <button class="carousel-tab" onclick="goToSlide(2, this)">
+          <div class="carousel-tab-num">03</div>
+          <div class="carousel-tab-label">Churn Prediction</div>
+        </button>
+      </div>
+
+    </div><!-- /agents-section-inner -->
+
+    <!-- Carousel track -->
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="carouselTrack">
+
+        <!-- PROSPECT -->
+        <div class="panel" id="panel-prospect">
+          <div class="panel-form">
+            <div class="panel-form-title">Prospecting Agent</div>
+            <div class="panel-form-desc">Score a lead and generate targeted outreach in seconds.</div>
+            <div class="field">
+              <label>Company name</label>
+              <input id="company" placeholder="e.g. Acme Corp" />
+            </div>
+            <div class="field">
+              <label>Industry</label>
+              <select id="industry">
+                <option>SaaS</option>
+                <option>FinTech</option>
+                <option>Healthcare</option>
+                <option>E-commerce</option>
+                <option>Manufacturing</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Company size (employees)</label>
+              <input id="size" type="number" placeholder="e.g. 250" />
+            </div>
+            <button class="btn btn-primary" id="prospectBtn" onclick="runProspect()">
+              Run agent
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="panel-output">
+            <div class="panel-output-label">Agent Output</div>
+            <div class="out-empty" id="pe">
+              <div class="out-empty-icon">📊</div>
+              Fill in the form and run the agent
+            </div>
+            <div class="loader" id="pl"><span class="spinner"></span> Running agent…</div>
+            <div class="result-block" id="pr">
+              <div class="result-row">
+                <div class="result-key">Lead Score</div>
+                <div class="result-big" id="p-score">—</div>
+              </div>
+              <div class="result-divider"></div>
+              <div class="result-row">
+                <div class="result-key">Generated Outreach</div>
+                <div class="result-text" id="p-email"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEAL -->
+        <div class="panel" id="panel-deal">
+          <div class="panel-form">
+            <div class="panel-form-title">Deal Intelligence Agent</div>
+            <div class="panel-form-desc">Assess deal risk and get your recommended next step.</div>
+            <div class="field">
+              <label>Days since last contact</label>
+              <input id="days" type="number" placeholder="e.g. 7" />
+            </div>
+            <div class="field">
+              <label>Response rate (0 – 1)</label>
+              <input id="response" type="number" step="0.1" min="0" max="1" placeholder="e.g. 0.4" />
+            </div>
+            <div class="field">
+              <label>Competitor involved?</label>
+              <select id="competitor">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="dealBtn" onclick="runDeal()" style="background:linear-gradient(135deg,var(--g-amber-a),var(--g-amber-b));box-shadow:0 2px 14px rgba(168,82,0,0.4);">
+              Run agent
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="panel-output">
+            <div class="panel-output-label">Agent Output</div>
+            <div class="out-empty" id="de">
+              <div class="out-empty-icon">⚠️</div>
+              Fill in the form and run the agent
+            </div>
+            <div class="loader" id="dl"><span class="spinner"></span> Analyzing deal…</div>
+            <div class="result-block" id="dr">
+              <div class="result-row">
+                <div class="result-key">Risk Level</div>
+                <div class="result-big amber" id="d-risk">—</div>
+              </div>
+              <div class="result-divider"></div>
+              <div class="result-row">
+                <div class="result-key">Recommended Action</div>
+                <div class="result-text" id="d-response"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHURN -->
+        <div class="panel" id="panel-churn">
+          <div class="panel-form">
+            <div class="panel-form-title">Churn Prediction Agent</div>
+            <div class="panel-form-desc">Identify at-risk accounts before they leave.</div>
+            <div class="field">
+              <label>Login frequency / month</label>
+              <input id="login" type="number" placeholder="e.g. 12" />
+            </div>
+            <div class="field">
+              <label>Feature usage score</label>
+              <input id="usage" type="number" placeholder="e.g. 45" />
+            </div>
+            <div class="field">
+              <label>Support tickets (last 30 days)</label>
+              <input id="tickets" type="number" placeholder="e.g. 3" />
+            </div>
+            <div class="field">
+              <label>Days since last active</label>
+              <input id="last" type="number" placeholder="e.g. 14" />
+            </div>
+            <div class="field">
+              <label>Subscription plan</label>
+              <select id="plan">
+                <option>Basic</option>
+                <option>Pro</option>
+                <option>Enterprise</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="churnBtn" onclick="runChurn()" style="background:linear-gradient(135deg,var(--g-green-a),var(--g-green-b));box-shadow:0 2px 14px rgba(26,138,86,0.4);">
+              Run agent
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="panel-output">
+            <div class="panel-output-label">Agent Output</div>
+            <div class="out-empty" id="ce">
+              <div class="out-empty-icon">📉</div>
+              Fill in the form and run the agent
+            </div>
+            <div class="loader" id="cl"><span class="spinner"></span> Predicting churn…</div>
+            <div class="result-block" id="cr">
+              <div class="result-row">
+                <div class="result-key">Churn Probability</div>
+                <div class="result-big green" id="c-prob">—</div>
+              </div>
+              <div class="result-divider"></div>
+              <div class="result-row">
+                <div class="result-key">Analysis</div>
+                <div class="result-text" id="c-explanation"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /carousel-track -->
+    </div><!-- /carousel-track-wrap -->
+
+  </div><!-- /agents-section-bg -->
+  </div><!-- /tabs-wrap -->
+
+  <!-- ── OVERVIEW ── -->
+  <div class="metrics-wrap reveal" id="overview">
+    <div class="metric" data-glyph="3×">
+      <div class="metric-num" data-target="3" data-suffix="×">3×</div>
+      <div class="metric-label">Faster prospecting vs manual</div>
+    </div>
+    <div class="metric" data-glyph="89%">
+      <div class="metric-num" data-target="89" data-suffix="%">89%</div>
+      <div class="metric-label">Deal risk prediction accuracy</div>
+    </div>
+    <div class="metric" data-glyph="62%">
+      <div class="metric-num" data-target="62" data-suffix="%">62%</div>
+      <div class="metric-label">Reduction in customer churn</div>
+    </div>
+  </div>
+
+  <script>
+    /* ── Carousel ── */
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const tabs = document.querySelectorAll('.carousel-tab');
+
+    function goToSlide(index, el) {
+      currentSlide = index;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      tabs.forEach(t => t.classList.remove('active'));
+      if (el) el.classList.add('active');
+      else tabs[index].classList.add('active');
+    }
+
+    /* touch/swipe */
+    let touchStartX = 0;
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) {
+        const next = dx < 0
+          ? Math.min(currentSlide + 1, 2)
+          : Math.max(currentSlide - 1, 0);
+        goToSlide(next, null);
+      }
+    });
+
+    /* ── State helpers ── */
+    function loading(e, l, r, btn) {
+      document.getElementById(e).style.display = 'none';
+      document.getElementById(l).classList.add('on');
+      document.getElementById(r).classList.remove('on');
+      const b = document.getElementById(btn);
+      b.disabled = true;
+      b.classList.add('pulse');
+      setTimeout(() => b.classList.remove('pulse'), 400);
+    }
+
+    function done(l, r, btn) {
+      document.getElementById(l).classList.remove('on');
+      document.getElementById(r).classList.add('on');
+      document.getElementById(btn).disabled = false;
+    }
+
+    function fail(e, l, btn, msg) {
+      document.getElementById(l).classList.remove('on');
+      const el = document.getElementById(e);
+      el.style.display = 'flex';
+      el.innerHTML = `<div class="out-empty-icon">⚠</div><span style="color:var(--red);font-size:17px;">${msg}</span>`;
+      document.getElementById(btn).disabled = false;
+    }
+
+    /* ── API calls ── */
+    async function runProspect() {
+      const company  = document.getElementById('company').value.trim();
+      const industry = document.getElementById('industry').value;
+      const size     = parseInt(document.getElementById('size').value);
+      if (!company || !size) { alert('Please fill in all fields.'); return; }
+
+      loading('pe','pl','pr','prospectBtn');
+      try {
+        const res = await fetch('/prospect', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ company, industry, size })
+        });
+        const d = await res.json();
+        document.getElementById('p-score').textContent = d.score ?? '—';
+        document.getElementById('p-email').textContent  = d.email  ?? '';
+        done('pl','pr','prospectBtn');
+      } catch(e) { fail('pe','pl','prospectBtn','Agent error: ' + e.message); }
+    }
+
+    async function runDeal() {
+      const days       = parseInt(document.getElementById('days').value);
+      const response   = parseFloat(document.getElementById('response').value);
+      const competitor = parseInt(document.getElementById('competitor').value);
+      if (isNaN(days) || isNaN(response)) { alert('Please fill in all fields.'); return; }
+
+      loading('de','dl','dr','dealBtn');
+      try {
+        const res = await fetch('/deal', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ days, response, competitor })
+        });
+        const d = await res.json();
+        const risk = (d.risk ?? '').toString().toLowerCase();
+        const riskEl = document.getElementById('d-risk');
+        riskEl.textContent = d.risk ?? '—';
+        riskEl.className = 'result-big ' +
+          (risk.includes('high') ? 'red' : risk.includes('medium') ? 'amber' : 'green');
+        document.getElementById('d-response').textContent = d.response ?? '';
+        done('dl','dr','dealBtn');
+      } catch(e) { fail('de','dl','dealBtn','Agent error: ' + e.message); }
+    }
+
+    async function runChurn() {
+      const login_frequency   = parseInt(document.getElementById('login').value);
+      const feature_usage     = parseInt(document.getElementById('usage').value);
+      const support_tickets   = parseInt(document.getElementById('tickets').value);
+      const last_active_days  = parseInt(document.getElementById('last').value);
+      const subscription_plan = document.getElementById('plan').value;
+      if ([login_frequency,feature_usage,support_tickets,last_active_days].some(isNaN)) {
+        alert('Please fill in all fields.'); return;
+      }
+
+      loading('ce','cl','cr','churnBtn');
+      try {
+        const res = await fetch('/churn', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ login_frequency, feature_usage, support_tickets, last_active_days, subscription_plan })
+        });
+        const d = await res.json();
+        const prob   = d.probability ?? 0;
+        const probEl = document.getElementById('c-prob');
+        probEl.textContent = Math.round(prob * 100) + '%';
+        probEl.className = 'result-big ' +
+          (prob > 0.6 ? 'red' : prob > 0.35 ? 'amber' : 'green');
+        document.getElementById('c-explanation').textContent = d.explanation ?? '';
+        done('cl','cr','churnBtn');
+      } catch(e) { fail('ce','cl','churnBtn','Agent error: ' + e.message); }
+    }
+
+    /* ── Scroll reveal ── */
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    /* ── Count-up animation for metrics ── */
+    function countUp(el, target, suffix, duration = 1200) {
+      let start = null;
+      const step = ts => {
+        if (!start) start = ts;
+        const pct = Math.min((ts - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - pct, 3); // ease-out-cubic
+        el.textContent = Math.round(ease * target) + suffix;
+        if (pct < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+
+    const metricObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const target = parseFloat(el.dataset.target);
+          const suffix = el.dataset.suffix || '';
+          countUp(el, target, suffix);
+          metricObs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.metric-num[data-target]').forEach(el => metricObs.observe(el));
+  </script>
+
+</body>
+</html>

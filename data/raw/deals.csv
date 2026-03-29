@@ -1,0 +1,101 @@
+deal_id,company_name,deal_stage,deal_value,last_contact_days,email_response_rate,competitor_mentioned
+0,Garcia-James,Lead,27539,25,0.28,0
+1,Williams-Wagner,Lead,28514,9,0.86,1
+2,"Bridges, Keller and Booth",Qualified,43545,22,0.83,0
+3,Manning-Stevens,Qualified,13167,12,0.17,1
+4,"Peterson, Evans and Williams",Lead,42804,17,0.29,1
+5,"Wall, Hogan and Martinez",Qualified,10032,23,0.41,0
+6,"Kennedy, Kelly and Meyers",Proposal,23454,12,0.52,0
+7,"Perez, Rodriguez and Berry",Lead,16260,6,0.7,0
+8,Ruiz-Griffin,Lead,47858,10,0.43,0
+9,Foster and Sons,Lead,5191,24,0.63,0
+10,Snow-Butler,Negotiation,15775,15,0.61,1
+11,"Brewer, Sims and Martin",Proposal,37533,3,0.59,0
+12,Black PLC,Proposal,20505,27,0.8,0
+13,Brown-Olsen,Lead,25516,20,0.58,0
+14,"Camacho, Hudson and Newman",Negotiation,9883,15,0.74,1
+15,Davis-Nelson,Lead,36116,6,0.09,0
+16,"Smith, Anthony and Hooper",Negotiation,35125,13,0.21,1
+17,Watts and Sons,Proposal,23583,2,0.44,1
+18,Miller LLC,Proposal,34327,23,0.05,1
+19,"Phillips, Mathews and King",Qualified,20831,24,0.86,1
+20,"Parker, Rice and Herrera",Qualified,14357,24,0.21,0
+21,Santana-Rivera,Qualified,23631,25,0.28,0
+22,Melendez Inc,Qualified,44302,26,0.97,1
+23,Alvarez LLC,Proposal,27667,14,0.76,0
+24,Meadows LLC,Lead,41531,0,0.82,0
+25,Reilly-Williams,Proposal,23413,25,0.15,1
+26,Mcdowell-Jackson,Proposal,36895,5,0.7,1
+27,"Rice, Carson and West",Lead,47725,7,0.71,1
+28,King-Baker,Qualified,19617,6,0.72,0
+29,"Golden, Munoz and Lawrence",Proposal,40576,22,0.75,1
+30,Diaz and Sons,Proposal,40578,25,0.69,1
+31,Stuart-Young,Negotiation,32334,20,0.28,1
+32,"Reyes, Wilkerson and Hoffman",Lead,49371,3,0.36,0
+33,"Roberts, Gaines and Mueller",Lead,20321,24,0.6,1
+34,King Group,Negotiation,8697,6,0.69,0
+35,Cook Inc,Lead,48789,20,0.62,1
+36,"White, Richardson and Fischer",Qualified,36650,17,0.42,1
+37,"Nelson, Cole and Obrien",Lead,22219,19,0.69,0
+38,Hawkins-Miller,Proposal,24131,21,0.11,1
+39,"Soto, Moreno and Coleman",Qualified,20200,12,0.38,1
+40,"Rocha, Watkins and Brown",Lead,19255,19,0.55,0
+41,Thompson Ltd,Lead,43699,17,0.74,0
+42,Ramirez Inc,Lead,18108,23,0.23,0
+43,Smith and Sons,Lead,25484,0,0.49,1
+44,"Gomez, Frost and Ball",Proposal,39124,15,0.81,1
+45,"King, Lee and Parker",Proposal,21396,22,0.03,1
+46,Mccoy Group,Negotiation,26684,4,0.16,1
+47,Robertson Group,Proposal,30149,22,0.18,0
+48,Taylor-Woodard,Negotiation,46071,18,0.59,1
+49,Alvarez LLC,Negotiation,38693,13,0.74,1
+50,George-Lucas,Lead,29439,8,0.91,0
+51,Taylor-Ramirez,Lead,32249,11,0.15,0
+52,Williams and Sons,Qualified,7747,28,0.76,0
+53,Whitaker-Park,Proposal,6343,5,0.38,1
+54,"Sanders, Johnson and Zuniga",Negotiation,26458,9,0.52,0
+55,Huynh and Sons,Qualified,27283,24,0.29,1
+56,"Hall, Bridges and Gonzalez",Qualified,26322,29,0.6,1
+57,"Cook, Hernandez and Burch",Lead,11096,25,0.49,0
+58,Pham PLC,Negotiation,43809,9,0.23,0
+59,Maldonado Group,Lead,31648,19,0.77,1
+60,"Bishop, Thomas and Mclaughlin",Qualified,20140,10,0.68,1
+61,Underwood LLC,Negotiation,28326,23,0.18,1
+62,"Bailey, Hernandez and Thornton",Proposal,36569,24,0.66,0
+63,"Weber, Hudson and Lester",Proposal,42386,4,0.05,0
+64,"Hubbard, Cox and Jackson",Lead,24739,27,0.27,0
+65,Powers-Barnett,Proposal,38220,27,0.4,0
+66,Roberts Ltd,Lead,24754,4,0.44,0
+67,Adams-Adams,Lead,41193,1,0.52,1
+68,Jordan Ltd,Lead,29823,25,0.79,0
+69,James PLC,Lead,17731,11,0.06,1
+70,Potter-House,Lead,25859,25,0.09,1
+71,Keller Ltd,Proposal,23745,2,0.27,0
+72,Barr-Warner,Proposal,42100,19,0.09,0
+73,"Moore, Petty and West",Lead,46249,14,0.77,0
+74,Franklin Ltd,Proposal,45343,29,0.29,0
+75,Moore LLC,Lead,46909,16,0.87,0
+76,Lewis-Coleman,Proposal,22024,9,0.02,0
+77,Browning Ltd,Negotiation,10539,4,0.54,0
+78,Lowe Ltd,Qualified,42539,12,0.58,1
+79,Munoz-Thomas,Negotiation,37362,29,0.08,0
+80,"Richardson, Serrano and Harris",Negotiation,19875,18,0.6,1
+81,Gonzales-Howard,Lead,28861,11,0.29,0
+82,Castro Inc,Proposal,36555,30,0.68,0
+83,Silva Inc,Qualified,19115,3,0.2,0
+84,Hoffman-Silva,Proposal,17368,7,0.87,0
+85,Smith-Deleon,Qualified,46855,16,0.79,0
+86,Harmon and Sons,Lead,12329,27,0.81,1
+87,"Ryan, Sanders and Guzman",Lead,23736,7,0.02,0
+88,Lewis Ltd,Qualified,24887,24,0.99,1
+89,Brown-Jackson,Lead,43269,8,0.49,1
+90,"Morton, Contreras and Martin",Negotiation,44917,12,0.49,0
+91,"Nelson, Wagner and Rodriguez",Lead,11342,1,0.96,0
+92,Ortiz Group,Qualified,29383,23,0.71,1
+93,Burke Ltd,Proposal,23318,10,0.4,0
+94,"Parks, Martin and Sellers",Proposal,39051,24,0.88,1
+95,Moore-Soto,Proposal,10468,10,0.43,1
+96,"Curtis, Barnes and Mitchell",Proposal,39613,25,0.08,0
+97,Trujillo PLC,Negotiation,37754,10,0.87,1
+98,Nunez-Jones,Proposal,19335,17,0.5,1
+99,Greene LLC,Negotiation,12097,6,0.6,1
