@@ -75,23 +75,35 @@ SalesCopilot AI introduces an **agentic AI architecture** that:
 ---
 
 ## 📁 Project Structure
-src/
-├── app/
-│ ├── app.py
-│ └── templates/
-│ └── index.html
-├── agents/
-│ ├── prospecting_agent.py
-│ ├── deal_agent.py
-│ └── retention_agent.py
-├── models/
-│ ├── churn_model.py
-│ └── churn_model.pkl
-├── llm/
-│ └── llm_utils.py
-├── data/
-│ └── customers.csv
 
+salescopilot-ai/
+├── src/
+│   ├── app/
+│   │   ├── app.py                  # Flask backend (API + routing)
+│   │   └── templates/
+│   │       └── index.html          # Frontend UI (single file)
+│   │
+│   ├── agents/
+│   │   ├── prospecting_agent.py    # Lead scoring + outreach generation
+│   │   ├── deal_agent.py           # Deal risk detection + recovery strategy
+│   │   └── retention_agent.py      # Churn prediction + retention actions
+│   │
+│   ├── models/
+│   │   ├── churn_model.py          # ML model loader + prediction logic
+│   │   └── churn_model.pkl         # Trained Random Forest model
+│   │
+│   ├── llm/
+│   │   └── llm_utils.py            # Ollama (Phi-3) integration
+│   │
+│   ├── data/
+│   │   └── customers.csv           # Synthetic dataset
+│   │
+│   └── notebooks/
+│       └── model.ipynb             # Data generation + training pipeline
+│
+├── requirements.txt                # Project dependencies
+├── README.md                       # Project documentation
+└── .gitignore                      # Ignore unnecessary files
 
 ---
 
