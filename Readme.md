@@ -93,7 +93,8 @@ salescopilot-ai/
 ├── src/
 │   ├── app/
 │   │   ├── app.py
-│   │   └── templates/index.html
+│   │   └── templates/
+│   │       └── index.html
 │   │
 │   ├── agents/
 │   │   ├── prospecting_agent.py
@@ -107,9 +108,13 @@ salescopilot-ai/
 │   ├── llm/
 │   │   └── llm_utils.py
 │   │
-│   └── data/customers.csv
+│   └── data/
+│       └── customers.csv
 │
-└── notebooks/model.ipynb
+├── notebooks/
+│   └── model.ipynb
+│
+└── README.md
 
 ---
 
