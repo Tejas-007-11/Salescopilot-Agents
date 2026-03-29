@@ -84,39 +84,7 @@ SalesCopilot AI acts as an intelligent co-pilot that:
 - Joblib
 - Ollama (Phi-3 LLM)
 
----
 
-## 📁 Project Structure
-
-salescopilot-ai/
-│
-├── src/
-│   ├── app/
-│   │   ├── app.py
-│   │   └── templates/
-│   │       └── index.html
-│   │
-│   ├── agents/
-│   │   ├── prospecting_agent.py
-│   │   ├── deal_agent.py
-│   │   └── retention_agent.py
-│   │
-│   ├── models/
-│   │   ├── churn_model.py
-│   │   └── churn_model.pkl
-│   │
-│   ├── llm/
-│   │   └── llm_utils.py
-│   │
-│   └── data/
-│       └── customers.csv
-│
-├── notebooks/
-│   └── model.ipynb
-│
-└── README.md
-
----
 
 ## ▶️ Setup
 
